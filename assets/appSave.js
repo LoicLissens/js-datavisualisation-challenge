@@ -51,58 +51,66 @@ dataYearsTop = dataYearsTop[0].split(" ");
 //////////////////////////////////////////////////////////////////////////////
 // CREATION DU CANVAS ET GRAPHIQUES 
 
-let dataCountryOne = dataCountryTop[0];
+let dataCountryOne = dataCountryTop[4];
 const min = d3.min(dataCountryOne, d => d);
 const max = d3.max(dataCountryOne, d => d);
 
-const margin = {top: 20, right: 20, bottom : 100, left : 100};
-const graphW = 800 - margin.left - margin.right;
-const graphH = 500 - margin.top - margin.bottom;
+const w = 800 ;
+const h = 500;
 const y = d3.scaleLinear()
             .domain([0, max])
-            .range([450,0]);
-
+            .range([0,400]);
 const x = d3.scaleBand()
             .domain(dataYearsTop)
-            .range([0, 650])
-            .paddingInner(0.2)
-            .paddingOuter(0.3);
+            .range([0, 700])
+            .paddingInner(0.5)
+            .paddingOuter(0.5);
+
+const margin = {top: 200, right: 20, bottom : 10, left : 50};
+const graphW = w - margin.left - margin.right;
+const graphH = h - margin.top - margin.bottom;
 
 const svgTop = d3.select("caption")
                 .append("svg")
-                .attr("width", 800)
-                .attr("height", 500)
-                .style("background-color","white");
-
-const graphTop = svgTop.append("g") // groupe avec tout les battonet dedans
-                .attr("widht", graphW)
-                .attr("height",graphH)
-                .attr("transform",`translate(${margin.left},${margin.top})`); 
-
-const groupeX = graphTop.append("g")
-                .attr("transform", `translate(0,450)`); // translate de 450, la ou doit etre l'axis x
+                .attr("width", w)
+                .attr("height", h)
+                .style("background-color","red");
+    
+    const graphTop = svgTop.append("g") // groupe avec tout les battonet dedans
+                       .attr("widht", graphW)
+                       .attr("height",graphH)
+                       .attr("transform",`translate(${margin.right},-40)`);
 
 const groupeY = graphTop.append("g");
+const groupeX = graphTop.append("g")
+                        .attr("transform", `translate(0,${graphH})`);
 
-const rectanglesTop  = graphTop.selectAll("rect")
-                        .data(dataCountryOne)
-                        .enter()
-                        .append("rect")
-                        .attr("fill","orange")
-                        .attr("width",50)
-                        .attr("height", (d) => 450 - y(d)) // 450 pour qu'il commence sur l'axis X
-                        .attr("x", function (d,i){return x(dataYearsTop[i])})
-                        .attr("y", (d) => y(d));
-                        
-const axeX = d3.axisBottom(x); // création de l'axe pour les dates
-const axeY = d3.axisLeft(y)  // création de l'axe pour les valeurs de crimes
-               .ticks(20)
-               .tickFormat(d => d + " (en milliers)");
-                        
-groupeX.call(axeX) // appel de l'axe des dates dans le grp X
-       .style("font-size", "14px");
-groupeY.call(axeY) //appel de l'axe des valeurs dans le grp Y
-        .style("font-size", "11px");
+
+    graphTop.selectAll("rect")
+        .data(dataCountryOne)
+        .enter()
+        .append("rect")
+        .attr("fill","orange")
+        .attr("width",50)
+        .attr("height", (d) => y(d))
+        .attr("x", function (d,i){return x(dataYearsTop[i])})
+        .attr("y", (d, i) => h- y(d))
+// création des axes
+const axeX = d3.axisBottom(x);
+const axeY = d3.axisLeft(y);
+
+groupeX.call(axeX);
+groupeY.call(axeY);
+
+
+
+
+
+
+
+
+
+
 
 
 
