@@ -9,11 +9,14 @@ Exercice visant à récupérer des données d'une API ou d'une page HTML en parc
 Et cela grace à la biblihotèque d3 js.
 
 ## Technologie utilisés
+
 Javascript vanilla et d3 js
-## Contenu (si il y a)
+## Contenu 
+
 Des graphiques adaptatifs en fonction de données.
 ## Progression 
-    80 % a la date de fin du projet il me reste le graphique des données fetché de l'API becode à traité ce qui n'a pas su etre fait par manque de temps.
+
+80 % a la date de fin du projet il me reste le graphique des données fetché de l'API becode à traité ce qui n'a pas su etre fait par manque de temps.
 ## Contributeurs
 Loïc Lissens
 ## Remerciements 
